@@ -1,0 +1,40 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:seekarc="http://schemas.android.com/apk/res-auto"
+    android:layout_weight="1"
+    android:padding="20dp"
+    tools:context="com.markusschaden.homeautomation.airconditioner.TemperatureSliderFragment">
+
+        <com.markusschaden.homeautomation.airconditioner.AirConSeekArc
+            android:id="@+id/seekArc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="30dp"
+            seekarc:rotation="0"
+            seekarc:startAngle="30"
+            seekarc:sweepAngle="300"
+            seekarc:arcWidth="30dp"
+            seekarc:progressWidth="0dp"
+            seekarc:progress="20"
+            seekarc:min="10"
+            seekarc:max="30"/>
+        <TextView
+            android:id="@+id/seekArcProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="0°"
+            android:textSize="70sp" />
+    <ImageView
+        android:id="@+id/thermometerImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/thermometer"
+        android:layout_marginTop="40dp"
+        />
+
+</FrameLayout>
