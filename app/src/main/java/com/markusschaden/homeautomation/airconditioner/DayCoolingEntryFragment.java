@@ -110,5 +110,7 @@ public class DayCoolingEntryFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(CoolingEntry item);
+
+        void onDayCoolingEntryClick(CoolingEntry mItem);
     }
 }

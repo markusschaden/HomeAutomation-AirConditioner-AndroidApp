@@ -1,12 +1,14 @@
 package com.markusschaden.homeautomation.airconditioner.domain;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 /**
  * Created by Markus on 31.01.2016.
  */
 @Data
-public class Time {
+public class Time implements Serializable {
     int hour;
     int minute;
 
