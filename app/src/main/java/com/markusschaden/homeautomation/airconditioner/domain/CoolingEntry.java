@@ -13,7 +13,7 @@ public class CoolingEntry implements Serializable {
     int temperature;
     Time startTime;
     Time stopTime;
-    boolean enabled;
+    boolean enabled = true;
     Day day;
 
     public CoolingEntry(Day day, Time start, Time end, int temperature) {

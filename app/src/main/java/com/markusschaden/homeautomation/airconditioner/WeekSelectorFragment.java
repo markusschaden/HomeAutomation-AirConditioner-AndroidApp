@@ -79,7 +79,7 @@ public class WeekSelectorFragment extends Fragment {
 
         ButterKnife.bind(this, rootView);
 
-        viewPager.setAdapter(new WeekPager(getActivity().getSupportFragmentManager(), getContext()));
+        viewPager.setAdapter(new WeekPager(getActivity().getSupportFragmentManager(), getActivity()));
         tabLayout.setupWithViewPager(viewPager);
 
         return rootView;
