@@ -12,7 +12,7 @@ import com.markusschaden.homeautomation.airconditioner.domain.CoolingEntry;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DayCoolingEditActivity extends AppCompatActivity {
+public class DayCoolingEditActivity extends AppCompatActivity  {
 
     public static final String ARG_COOLING_ENTRY = "cooling_entry";
 

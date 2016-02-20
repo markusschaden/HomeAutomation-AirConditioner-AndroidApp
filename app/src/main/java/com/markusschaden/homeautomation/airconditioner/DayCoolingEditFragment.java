@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.markusschaden.homeautomation.airconditioner.animation.FlipAnimation;
+import com.markusschaden.homeautomation.airconditioner.dal.DataService;
 import com.markusschaden.homeautomation.airconditioner.domain.CoolingEntry;
 import com.markusschaden.homeautomation.airconditioner.domain.Time;
 
@@ -38,7 +39,7 @@ public class DayCoolingEditFragment extends Fragment {
 
     private CoolingEntry mCoolingEntry;
 
-    private OnFragmentInteractionListener mListener;
+    //private CoolingEntryChange mListener;
 
     @Bind(R.id.day)
     TextView dayTextView;
@@ -122,7 +123,7 @@ public class DayCoolingEditFragment extends Fragment {
                 switcher.setChecked(mCoolingEntry.isEnabled());
                 switcher2.setChecked(mCoolingEntry.isEnabled());
                 flipCard();
-
+                saveChange(mCoolingEntry);
             }
         });
 
@@ -134,6 +135,7 @@ public class DayCoolingEditFragment extends Fragment {
                 switcher.setChecked(mCoolingEntry.isEnabled());
                 switcher2.setChecked(mCoolingEntry.isEnabled());
                 flipCard();
+                saveChange(mCoolingEntry);
 
             }
         });
@@ -147,6 +149,8 @@ public class DayCoolingEditFragment extends Fragment {
 
                         mCoolingEntry.setStartTime(new Time(hourOfDay, minute));
                         startTime.setText(getString(R.string.startTime) + " " + mCoolingEntry.getStartTime().formatted());
+
+                        saveChange(mCoolingEntry);
                     }
                 }, mCoolingEntry.getStartTime().getHour(), mCoolingEntry.getStartTime().getMinute(), true);
                 timePickerDialog.show();
@@ -162,6 +166,8 @@ public class DayCoolingEditFragment extends Fragment {
 
                         mCoolingEntry.setStopTime(new Time(hourOfDay, minute));
                         stopTime.setText(getString(R.string.stopTime) + " " + mCoolingEntry.getStopTime().formatted());
+
+                        saveChange(mCoolingEntry);
                     }
                 }, mCoolingEntry.getStopTime().getHour(), mCoolingEntry.getStopTime().getMinute(), true);
                 timePickerDialog.show();
@@ -169,10 +175,12 @@ public class DayCoolingEditFragment extends Fragment {
         });
 
         seekArcProgress.setText("" + mCoolingEntry.getTemperature() + "°");
+        seekArc.setProgress(mCoolingEntry.getTemperature());
         seekArc.setOnSeekArcChangeListener(new AirConSeekArc.OnSeekArcChangeListener() {
             @Override
             public void onProgressChanged(AirConSeekArc seekArc, int value, boolean b) {
                 seekArcProgress.setText("" + value + "°");
+                saveChange(mCoolingEntry);
             }
 
             @Override
@@ -189,42 +197,25 @@ public class DayCoolingEditFragment extends Fragment {
         return rootView;
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    private void saveChange(CoolingEntry mCoolingEntry) {
+        DataService.getData().get(mCoolingEntry.getDay()).add(mCoolingEntry);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        /*if (context instanceof CoolingEntryChange) {
+            mListener = (CoolingEntryChange) context;
         } else {
             //throw new RuntimeException(context.toString()
             //        + " must implement OnFragmentInteractionListener");
-        }
+        }*/
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        //mListener = null;
     }
 
     private void flipCard()

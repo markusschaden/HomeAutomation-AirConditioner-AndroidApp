@@ -31,6 +31,7 @@ public class DayCoolingEntryFragment extends Fragment {
     private int mColumnCount = 1;
     private Day day;
     private OnListFragmentInteractionListener mListener;
+    private View view;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -63,7 +64,7 @@ public class DayCoolingEntryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_daycoolingentry_list, container, false);
+        view = inflater.inflate(R.layout.fragment_daycoolingentry_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -79,6 +80,11 @@ public class DayCoolingEntryFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((RecyclerView) view).setAdapter(new MyDayCoolingEntryRecyclerViewAdapter(DataService.getData().get(day), mListener));
+    }
 
     @Override
     public void onAttach(Context context) {

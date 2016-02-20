@@ -468,6 +468,7 @@ public class AirConSeekArc extends View {
     }
 
     public void setProgress(int progress) {
+        progress -= mMin;
         updateProgress(progress, false);
     }
 
